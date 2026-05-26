@@ -59,6 +59,14 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: normal;
     font-style: italic;
     font-display: block;
+  } 
+  
+  @font-face {
+    font-family: 'dday';
+    src: url('/fonts/Paperlogy-7Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
   }
   
   html, body {

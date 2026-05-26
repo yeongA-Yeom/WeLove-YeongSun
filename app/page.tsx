@@ -11,18 +11,18 @@ const DateSection = dynamic(() => import('../src/components/sections/DateSection
 });
 
 // 카카오맵 API는 클라이언트 사이드에서만 로드되어야 함
-const VenueSection = dynamic(() => import('../src/components/sections/VenueSection'), {
+/*const VenueSection = dynamic(() => import('../src/components/sections/VenueSection'), {
   ssr: false,
   loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>
 });
-
+*/
 const GallerySection = dynamic(() => import('../src/components/sections/GallerySection'), {
   loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>
 });
 
 const InvitationSection = dynamic(() => import('../src/components/sections/InvitationSection'));
 const RsvpSection = dynamic(() => import('../src/components/sections/RsvpSection'));
-const AccountSection = dynamic(() => import('../src/components/sections/AccountSection'));
+//const AccountSection = dynamic(() => import('../src/components/sections/AccountSection'));
 const Footer = dynamic(() => import('../src/components/sections/Footer'));
 
 export default function Home() {
@@ -37,7 +37,7 @@ export default function Home() {
     // MainSection은 색상 계산에서 제외 (항상 기본 스타일)
     sections.push('invitation'); // InvitationSection
     sections.push('date'); // DateSection  
-    sections.push('venue'); // VenueSection
+   // sections.push('venue'); // VenueSection
     
     if (galleryPosition === 'middle') {
       sections.push('gallery-middle'); // GallerySection (middle)
@@ -47,7 +47,7 @@ export default function Home() {
       sections.push('rsvp'); // RsvpSection
     }
     
-    sections.push('account'); // AccountSection
+    //sections.push('account'); // AccountSection
     
     if (galleryPosition === 'bottom') {
       sections.push('gallery-bottom'); // GallerySection (bottom)
@@ -67,10 +67,10 @@ export default function Home() {
       <MainSection />
       <InvitationSection bgColor={sectionColorMap['invitation']} />
       <DateSection bgColor={sectionColorMap['date']} />
-      <VenueSection bgColor={sectionColorMap['venue']} />
+      {/* <VenueSection bgColor={sectionColorMap['venue']} />*/}
       {galleryPosition === 'middle' && <GallerySection bgColor={sectionColorMap['gallery-middle']} />}
       {showRsvp && <RsvpSection bgColor={sectionColorMap['rsvp']} />}
-      <AccountSection bgColor={sectionColorMap['account']} />
+      {/*<AccountSection bgColor={sectionColorMap['account']} />*/}
       {galleryPosition === 'bottom' && <GallerySection bgColor={sectionColorMap['gallery-bottom']} />}
       <Footer />
     </main>
