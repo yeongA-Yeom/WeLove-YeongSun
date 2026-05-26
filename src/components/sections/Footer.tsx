@@ -17,18 +17,9 @@ const Footer = () => {
     <FooterContainer>
       {/* WeddingInvitation-Footer-NonCommercial DO NOT CHANGE*/}
       <FooterContent>
-        <Copyright>© {currentYear} Jawon Koo</Copyright>
-        <Credits>Made with ❤️</Credits>
-        <GithubLink
-          href="https://github.com/jw-koo/wedding-invitation"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitHub 저장소 바로가기
-        </GithubLink>
-        <HiddenAttribution data-jwk-id={watermarkId}>
-          NonCommercial
-        </HiddenAttribution>
+        <Copyright>© {currentYear} Yeong A </Copyright>
+        <Credits>Made with 세자매❤️</Credits>
+
       </FooterContent>
     </FooterContainer>
   );
