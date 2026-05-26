@@ -9,52 +9,45 @@ const watermarkId = weddingConfig.meta._jwk_watermark_id || 'JWK-NonCommercial';
  * @license
  * 웨딩 청첩장 템플릿
  * Copyright (c) 2025 Jawon Koo
- * 라이선스: CC BY-NC-ND 4.0
- * 저작자표시-비영리-변경금지
- * https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko
- * 
- * 이 코드는 비상업적 용도로만 사용 가능합니다.
- * 상업적 용도로 사용 시 법적 조치가 취해질 수 있습니다.
- * ID: ${watermarkId}
  */
 
 export const GlobalStyle = createGlobalStyle`
-  /* 폰트 로딩 전에 적용될 스타일 */
+  /* Paperlogy 폰트 파일 정의 */
   @font-face {
-    font-family: 'MaruBuri';
-    src: url('/fonts/MaruBuri-ExtraLight.ttf') format('truetype');
+    font-family: 'CustomFont';
+    src: url('/fonts/Paperlogy-2ExtraLight.ttf') format('truetype');
     font-weight: 200;
     font-style: normal;
-    font-display: block; /* 폰트 로딩될 때까지 텍스트를 보이지 않게 함 */
+    font-display: block;
   }
   
   @font-face {
-    font-family: 'MaruBuri';
-    src: url('/fonts/MaruBuri-Light.ttf') format('truetype');
+    font-family: 'CustomFont';
+    src: url('/fonts/Paperlogy-3Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
     font-display: block;
   }
   
   @font-face {
-    font-family: 'MaruBuri';
-    src: url('/fonts/MaruBuri-Regular.ttf') format('truetype');
+    font-family: 'CustomFont';
+    src: url('/fonts/Paperlogy-4Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: block;
   }
   
   @font-face {
-    font-family: 'MaruBuri';
-    src: url('/fonts/MaruBuri-SemiBold.ttf') format('truetype');
+    font-family: 'CustomFont';
+    src: url('/fonts/Paperlogy-6SemiBold.ttf') format('truetype');
     font-weight: 600;
     font-style: normal;
     font-display: block;
   }
   
   @font-face {
-    font-family: 'MaruBuri';
-    src: url('/fonts/MaruBuri-Bold.ttf') format('truetype');
+    font-family: 'CustomFont';
+    src: url('/fonts/Paperlogy-7Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;
     font-display: block;
@@ -62,24 +55,24 @@ export const GlobalStyle = createGlobalStyle`
 
   @font-face {
     font-family: 'PlayfairDisplay';
-    src: url('/fonts/PlayfairDisplay-Italic.ttf') format('truetype');
+    src: url('/fonts/Paperlogy-9Black.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
     font-display: block;
   }
   
-  /* 컨텐츠가 바로 보이지만 폰트가 로드되면 레이아웃이 바뀌는 것을 방지 */
   html, body {
     visibility: visible;
     opacity: 1;
     font-size: 16px;
+    margin: 0;
+    padding: 0;
   }
   
   body {
-    font-family: 'MaruBuri', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    /* ★ 핵심 수정: MaruBuri 대신 위에서 정의한 CustomFont를 최우선으로 적용 */
+    font-family: 'CustomFont', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #333333;
-    margin: 0;
-    padding: 0;
     line-height: 1.6;
   }
 
@@ -119,4 +112,4 @@ export const GlobalStyle = createGlobalStyle`
     --text-light: #999999;
     --jwk-id: "${watermarkId}";
   }
-`; 
+`;

@@ -1,6 +1,5 @@
 const uniqueIdentifier = "JWK-WEDDING-TEMPLATE-V1";
 
-// 갤러리 레이아웃 타입 정의
 type GalleryLayout = "scroll" | "grid";
 type GalleryPosition = "middle" | "bottom";
 
@@ -11,155 +10,90 @@ interface GalleryConfig {
 }
 
 export const weddingConfig = {
-  // 메타 정보
   meta: {
-    title: "신랑 ❤️ 신부의 결혼식에 초대합니다",
-    description: "결혼식 초대장",
-    ogImage: "/images/ha0h-1fsi-bqt3.jpg",
+    title: "사랑하는 엄마의 영광스러운 퇴임식 🤍",
+    description: "30년의 열정과 헌신, 유영선 여사님의 은퇴를 축하합니다.",
+    ogImage: "/images/gallery/intro_1.png",
     noIndex: true,
     _jwk_watermark_id: uniqueIdentifier,
   },
-
-  // 메인 화면
   main: {
-    title: "Wedding Invitation",
-    image: "/images/ha0h-1fsi-bqt3.jpg",
-    date: "2026년 5월 16일 토요일 12시 30분",
-    venue: "웨딩홀 이름"
+    title: "❤️축 퇴 직❤️",
+    image: "/images/gallery/image001.jpg",
+    date: "2026년 5월 31일 일요일",
+    venue: "행복 가득한 우리 집"
   },
-
-  // 소개글
   intro: {
-    title: "",
-    text: "서로를 바라보며 걸어온\n소중한 발걸음이\n이제 하나의 길로 이어집니다.\n\n사랑과 믿음으로\n새 가정을 이루는 저희 두 사람의\n작은 시작을 알려드립니다."
+    title: "새로운 시작",
+    text: "한평생 가족과 일터를 위해\n쉼 없이 달려오신\n유영선 여사님의 아름다운 마침표.\n\n더 찬란하게 빛날\n엄마의 두 번째 서막을\n우리 온 가족이 응원합니다."
   },
-
-  // 결혼식 일정
   date: {
     year: 2026,
     month: 5,
-    day: 16,
-    hour: 12,
-    minute: 30,
-    displayDate: "2026.05.16 SAT PM 12:30",
+    day: 31,
+    hour: 11,
+    minute: 0,
+    displayDate: "2026.05.31 SUN AM 11:00",
   },
-
-  // 장소 정보
   venue: {
-    name: "웨딩홀 이름",
-    address: "서울특별시 강남구 테헤란로 123\n웨딩홀 이름",
-    tel: "02-1234-5678",
-    naverMapId: "웨딩홀 이름", // 네이버 지도 검색용 장소명
+    name: "행복 가득한 우리 집",
+    address: "가족 모임 장소",
+    tel: "010-1234-5678",
+    naverMapId: "장소명",
     coordinates: {
       latitude: 37.5665,
       longitude: 126.9780,
     },
-    placeId: "123456789", // 네이버 지도 장소 ID
-    mapZoom: "17", // 지도 줌 레벨
-    mapNaverCoordinates: "14141300,4507203,15,0,0,0,dh", // 네이버 지도 길찾기 URL용 좌표 파라미터 (구 형식)
+    placeId: "123456789",
+    mapZoom: "17",
+    mapNaverCoordinates: "14141300,4507203,15,0,0,0,dh",
     transportation: {
-      subway: "지하철역 1번 출구에서 도보 5분",
-      bus: "간선\n 101, 102, 103\n지선\n 1234, 5678",
+      subway: "오시는 길 안내",
+      bus: "버스 안내",
     },
-    parking: "건물 지하 주차장 이용 가능 (2시간 무료)",
-    // 신랑측 배차 안내
-    groomShuttle: {
-      location: "신랑측 배차 출발지",
-      departureTime: "오전 10시 30분 출발",
-      contact: {
-        name: "담당자명",
-        tel: "010-1234-5678"
-      }
-    },
-    // 신부측 배차 안내
-    brideShuttle: {
-      location: "신부측 배차 출발지",
-      departureTime: "오전 11시 출발",
-      contact: {
-        name: "담당자명",
-        tel: "010-9876-5432"
-      }
-    }
+    parking: "주차 가능",
+    groomShuttle: { location: "", departureTime: "", contact: { name: "", tel: "" } },
+    brideShuttle: { location: "", departureTime: "", contact: { name: "", tel: "" } }
   },
-
-  // 갤러리
   gallery: {
-    layout: "grid" as GalleryLayout, // "scroll" 또는 "grid" 선택
-    position: "bottom" as GalleryPosition, // "middle" (현재 위치) 또는 "bottom" (맨 하단) 선택
+    layout: "grid" as GalleryLayout,
+    position: "middle" as GalleryPosition,
     images: [
       "/images/gallery/image1.jpg",
       "/images/gallery/image2.jpg",
       "/images/gallery/image3.jpg",
-      "/images/gallery/image4.jpg",
-      "/images/gallery/image5.jpg",
-      "/images/gallery/image6.jpg",
-      "/images/gallery/image7.jpg",
-      "/images/gallery/image8.jpg",
-      "/images/gallery/image9.jpg",
     ],
   } as GalleryConfig,
-
-  // 초대의 말씀
   invitation: {
-    message: "한 줄기 별빛이 되어 만난 인연\n평생을 함께 걸어가려 합니다.\n\n소중한 분들의 축복 속에\n저희 두 사람이 첫 걸음을 내딛습니다.\n\n귀한 시간 내어 함께해 주신다면\n그 어떤 축복보다 값진 선물이 될 것입니다.",
+    message: "Dear. 사랑하는 엄마에게\n\n엄마라는 이름으로, 그리고 멋진 직업인으로\n한평생 책임을 다해오신 모습을 존경합니다.\n\n엄마가 흘린 소중한 땀방울이 있었기에\n지금의 우리 가족이 있을 수 있었습니다.\n\n이제 일터에서의 무거운 짐은 모두 내려놓고,\n더 자유롭고 행복하게 빛날 엄마의 미래를\n마음을 다해 응원합니다.\n\n그동안 정말 고생 많으셨어요.\n사랑하고, 존경합니다. 🤍",
     groom: {
-      name: "신랑이름",
-      label: "아들",
-      father: "신랑아버지",
-      mother: "신랑어머니",
+      name: "유영선",
+      label: "여사님",
+      father: "",
+      mother: "",
     },
     bride: {
-      name: "신부이름",
-      label: "딸",
-      father: "신부아버지",
-      mother: "신부어머니",
+      name: "가족일동",
+      label: "올림",
+      father: "",
+      mother: "",
     },
   },
-
-  // 계좌번호
   account: {
-    groom: {
-      bank: "은행명",
-      number: "123-456-789012",
-      holder: "신랑이름",
-    },
-    bride: {
-      bank: "은행명",
-      number: "987-654-321098",
-      holder: "신부이름",
-    },
-    groomFather: {
-      bank: "은행명",
-      number: "111-222-333444",
-      holder: "신랑아버지",
-    },
-    groomMother: {
-      bank: "은행명",
-      number: "555-666-777888",
-      holder: "신랑어머니",
-    },
-    brideFather: {
-      bank: "은행명",
-      number: "999-000-111222",
-      holder: "신부아버지",
-    },
-    brideMother: {
-      bank: "은행명",
-      number: "333-444-555666",
-      holder: "신부어머니",
-    }
+    groom: { bank: "은행명", number: "계좌번호", holder: "유영선" },
+    bride: { bank: "", number: "", holder: "" },
+    groomFather: { bank: "", number: "", holder: "" },
+    groomMother: { bank: "", number: "", holder: "" },
+    brideFather: { bank: "", number: "", holder: "" },
+    brideMother: { bank: "", number: "" , holder: ""}
   },
-
-  // RSVP 설정
   rsvp: {
-    enabled: false, // RSVP 섹션 표시 여부
-    showMealOption: false, // 식사 여부 입력 옵션 표시 여부
+    enabled: false,
+    showMealOption: false,
   },
-
-  // 슬랙 알림 설정
   slack: {
     webhookUrl: process.env.NEXT_PUBLIC_SLACK_WEBHOOK_URL || "",
     channel: "#wedding-response",
-    compactMessage: true, // 슬랙 메시지를 간결하게 표시
+    compactMessage: true,
   },
-}; 
+};
