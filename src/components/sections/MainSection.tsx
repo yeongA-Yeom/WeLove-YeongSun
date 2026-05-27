@@ -31,7 +31,9 @@ type PetalType = {
 
 const MainSection = () => {
     const [petals, setPetals] = useState<PetalType[]>([]);
+    const [currentImage, setCurrentImage] = useState(0);
 
+    //꽃잎 변경
     useEffect(() => {
         const generatedPetals = Array.from({ length: 28 }).map((_, index) => ({
             id: index,
@@ -46,13 +48,24 @@ const MainSection = () => {
         setPetals(generatedPetals);
     }, []);
 
+    // 이미지 변경
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImage((prev) => {
+                return (prev + 1) % weddingConfig.gallery.images.length;
+            });
+        }, 10000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <MainSectionContainer
             className={`wedding-container jwk-${watermarkId.slice(0, 8)}-main`}
         >
             {/* 배경 이미지 */}
             <BackgroundImage
-                src={weddingConfig.main.image}
+                src={weddingConfig.gallery.images[currentImage]}
                 alt="메인 배경 이미지"
                 fill
                 priority
@@ -131,27 +144,23 @@ const MainSectionContainer = styled.section`
 
 const BackgroundImage = styled(Image)`
   z-index: 0;
+
   object-fit: cover;
+
   object-position: center center;
-  animation: zoomIn 2.5s ease;
 
-  @keyframes zoomIn {
-    from {
-      transform: scale(1.08);
-      opacity: 0;
-    }
+  animation:
+          fadeImage 10s linear;
 
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
 
   @media (min-width: 768px) {
+
     object-fit: contain;
+
     background: #f8f6f2;
   }
 `;
+
 
 const Overlay = styled.div`
   position: absolute;

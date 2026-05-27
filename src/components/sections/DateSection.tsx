@@ -176,10 +176,11 @@ const DateSectionContainer = styled.section<{ $bgColor: 'white' | 'beige' }>`
 const SectionTitle = styled.h2`
   position: relative;
   display: inline-block;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-weight: 500;
   font-size: 1.5rem;
 
+  /*
   &::after {
     content: '';
     position: absolute;
@@ -190,13 +191,13 @@ const SectionTitle = styled.h2`
     height: 6px;
     border-radius: 50%;
     background-color: var(--secondary-color);
-  }
+  }*/
 `;
 
 // 달력 카드 박스
 const CalendarCard = styled.div`
   background-color: white;
-  border-radius: 8px;
+  border-radius: 40px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   padding: 1.5rem;
   margin-bottom: 2rem;

@@ -390,10 +390,11 @@ const GallerySectionContainer = styled.section<{ $bgColor: 'white' | 'beige' }>`
 const SectionTitle = styled.h2`
   position: relative;
   display: inline-block;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-weight: 500;
   font-size: 1.5rem;
   
+  /*
   &::after {
     content: '';
     position: absolute;
@@ -405,6 +406,7 @@ const SectionTitle = styled.h2`
     border-radius: 50%;
     background-color: var(--secondary-color);
   }
+  */
 `;
 
 const GalleryContainer = styled.div`

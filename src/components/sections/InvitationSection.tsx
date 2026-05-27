@@ -221,7 +221,8 @@ const InvitationSection = ({ bgColor = 'white' }: InvitationSectionProps) => {
 
           </CoupleInfo>
         </CoupleContainer>
-       - 가족 일동 올림 -
+
+        💌 사랑하는 딸들 올림 💌
       </InvitationSectionContainer>
   );
 };
