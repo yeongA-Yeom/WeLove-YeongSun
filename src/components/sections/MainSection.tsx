@@ -168,14 +168,14 @@ const Overlay = styled.div`
 const PetalContainer = styled.div`
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 5;
   overflow: hidden;
   pointer-events: none;
 `;
 
 const Petal = styled.div`
   position: absolute;
-  top: -12%;
+  top: -40%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -218,7 +218,7 @@ const MainContent = styled.div`
   top: 6vh;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 3;
+  z-index: 6;
   width: 100%;
   padding: 0 1rem;
 `;
