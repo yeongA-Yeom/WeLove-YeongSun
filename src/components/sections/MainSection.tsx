@@ -1,15 +1,8 @@
 'use client';
 
-// React 사용
 import React, { useMemo } from 'react';
-
-// styled-components 사용
 import styled from 'styled-components';
-
-// Next.js 이미지 컴포넌트
 import Image from 'next/image';
-
-// 설정 파일
 import { weddingConfig } from '../../config/wedding-config';
 
 //////////////////////////////////////////////////////
@@ -19,9 +12,6 @@ import { weddingConfig } from '../../config/wedding-config';
 const watermarkId =
     weddingConfig.meta._jwk_watermark_id ||
     'JWK-NonCommercial';
-
-
-
 
 //////////////////////////////////////////////////////
 // 프리지아 꽃잎 이미지 목록
@@ -49,7 +39,7 @@ const MainSection = () => {
 
     const petals = useMemo(() => {
 
-        return Array.from({ length: 24 }).map((_, index) => ({
+        return Array.from({ length: 28 }).map((_, index) => ({
 
             id: index,
 
@@ -60,11 +50,13 @@ const MainSection = () => {
 
             left: Math.random() * 100,
 
-            duration: 8 + Math.random() * 10,
+            duration: 9 + Math.random() * 10,
 
-            delay: Math.random() * 5,
+            delay: Math.random() * 8,
 
-            size: 12 + Math.random() * 16,
+            size: 8 + Math.random() * 12,
+
+            drift: -30 + Math.random() * 80,
         }));
 
     }, []);
@@ -79,34 +71,20 @@ const MainSection = () => {
             className={`wedding-container jwk-${watermarkId.slice(0, 8)}-main`}
         >
 
-            //////////////////////////////////////////////////////
-            // 배경 이미지
-            //////////////////////////////////////////////////////
-
+            {/* 배경 이미지 */}
             <BackgroundImage
                 src={weddingConfig.main.image}
-
                 alt="메인 배경 이미지"
-
                 fill
-
                 priority
-
                 sizes="100vw"
-
                 quality={90}
             />
 
-            //////////////////////////////////////////////////////
-            // 어두운 오버레이
-            //////////////////////////////////////////////////////
-
+            {/* 어두운 오버레이 */}
             <Overlay />
 
-            //////////////////////////////////////////////////////
-            // 떨어지는 프리지아 꽃잎
-            //////////////////////////////////////////////////////
-
+            {/* 프리지아 꽃잎 */}
             <PetalContainer>
 
                 {petals.map((petal) => (
@@ -125,39 +103,32 @@ const MainSection = () => {
                             animationDelay: `${petal.delay}s`,
 
                             backgroundImage: `url(${petal.image})`,
+
+                            ['--drift' as any]: `${petal.drift}px`,
                         }}
                     />
                 ))}
 
             </PetalContainer>
 
-            //////////////////////////////////////////////////////
-            // 메인 텍스트
-            //////////////////////////////////////////////////////
-
+            {/* 메인 텍스트 */}
             <MainContent>
 
-                {/* 제목 */}
                 <MainTitle>
                     {weddingConfig.main.title}
                 </MainTitle>
 
-                {/* 날짜 */}
                 <DateText>
                     {weddingConfig.main.date}
                 </DateText>
 
-                {/* 장소/문구 */}
                 <VenueText>
                     {weddingConfig.main.venue}
                 </VenueText>
 
             </MainContent>
 
-            //////////////////////////////////////////////////////
-            // 아래 화살표
-            //////////////////////////////////////////////////////
-
+            {/* 아래 화살표 */}
             <ScrollIndicator>
                 ↓
             </ScrollIndicator>
@@ -185,16 +156,6 @@ const MainSectionContainer = styled.section`
 
   overflow: hidden;
 
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: flex-start;
-
-  align-items: center;
-
-  padding-top: 3.5vh;
-
   text-align: center;
 
   color: white;
@@ -202,7 +163,7 @@ const MainSectionContainer = styled.section`
   background: #f8f6f2;
 
   //////////////////////////////////////////////////////
-  // 페이지 등장 애니메이션
+  // 등장 애니메이션
   //////////////////////////////////////////////////////
 
   animation: fadeIn 1.8s ease;
@@ -247,6 +208,10 @@ const MainSectionContainer = styled.section`
 const BackgroundImage = styled(Image)`
   z-index: 0;
 
+  object-fit: cover;
+
+  object-position: center center;
+
   //////////////////////////////////////////////////////
   // 이미지 등장 애니메이션
   //////////////////////////////////////////////////////
@@ -267,15 +232,7 @@ const BackgroundImage = styled(Image)`
   }
 
   //////////////////////////////////////////////////////
-  // 모바일
-  //////////////////////////////////////////////////////
-
-  object-fit: cover;
-
-  object-position: center center;
-
-  //////////////////////////////////////////////////////
-  // PC에서는 이미지 전체 보이게
+  // PC
   //////////////////////////////////////////////////////
 
   @media (min-width: 768px) {
@@ -295,18 +252,18 @@ const Overlay = styled.div`
 
   inset: 0;
 
-  background: linear-gradient(
-          to bottom,
-          rgba(0,0,0,0.35) 0%,
-          rgba(0,0,0,0.08) 35%,
-          rgba(0,0,0,0) 60%
-  );
-
   z-index: 1;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.35) 0%,
+    rgba(0,0,0,0.08) 35%,
+    rgba(0,0,0,0) 60%
+  );
 `;
 
 //////////////////////////////////////////////////////
-// 꽃잎 컨테이너
+// 꽃잎 영역
 //////////////////////////////////////////////////////
 
 const PetalContainer = styled.div`
@@ -328,7 +285,7 @@ const PetalContainer = styled.div`
 const Petal = styled.div`
   position: absolute;
 
-  top: -10%;
+  top: -12%;
 
   background-size: contain;
 
@@ -336,36 +293,48 @@ const Petal = styled.div`
 
   background-position: center;
 
-  opacity: 0.9;
+  opacity: 0;
 
-  filter: blur(0.2px);
+  filter: blur(0.1px);
 
-  animation-name: falling;
+  animation-name: fallingPetal;
 
   animation-timing-function: linear;
 
   animation-iteration-count: infinite;
 
-  @keyframes falling {
+  @keyframes fallingPetal {
 
     0% {
+
       transform:
-              translateY(-10vh)
-              translateX(0)
-              rotate(0deg);
+        translateY(-10vh)
+        translateX(0)
+        rotate(0deg);
 
       opacity: 0;
     }
 
     10% {
-      opacity: 0.9;
+      opacity: 0.85;
+    }
+
+    50% {
+
+      transform:
+        translateY(55vh)
+        translateX(calc(var(--drift) / 2))
+        rotate(180deg);
+
+      opacity: 0.75;
     }
 
     100% {
+
       transform:
-              translateY(110vh)
-              translateX(60px)
-              rotate(360deg);
+        translateY(115vh)
+        translateX(var(--drift))
+        rotate(360deg);
 
       opacity: 0;
     }
@@ -377,15 +346,29 @@ const Petal = styled.div`
 //////////////////////////////////////////////////////
 
 const MainContent = styled.div`
-  position: relative;
+  position: absolute;
+
+  top: 7vh;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 100%;
+
+  padding: 0 1rem;
 
   z-index: 3;
 
-  margin-top: 1vh;
+  @media (max-width: 450px) {
 
-  padding-left: 1rem;
+    top: 6vh;
+  }
 
-  padding-right: 1rem;
+  @media (min-width: 768px) {
+
+    top: 6vh;
+  }
 `;
 
 //////////////////////////////////////////////////////
@@ -394,9 +377,9 @@ const MainContent = styled.div`
 
 const MainTitle = styled.h1`
   font-family:
-          'PlayfairDisplay',
-          'Times New Roman',
-          serif;
+    'PlayfairDisplay',
+    'Times New Roman',
+    serif;
 
   font-size: 3rem;
 
@@ -409,14 +392,17 @@ const MainTitle = styled.h1`
   margin-bottom: 1rem;
 
   @media (max-width: 768px) {
+
     font-size: 2.5rem;
   }
 
   @media (max-width: 450px) {
+
     font-size: 2rem;
   }
 
   @media (max-width: 360px) {
+
     font-size: 1.8rem;
   }
 `;
@@ -431,10 +417,12 @@ const DateText = styled.p`
   margin-bottom: 0.5rem;
 
   @media (max-width: 768px) {
+
     font-size: 1.15rem;
   }
 
   @media (max-width: 450px) {
+
     font-size: 1rem;
   }
 `;
@@ -447,10 +435,12 @@ const VenueText = styled.p`
   font-size: 1rem;
 
   @media (max-width: 768px) {
+
     font-size: 0.95rem;
   }
 
   @media (max-width: 450px) {
+
     font-size: 0.9rem;
   }
 `;
@@ -473,10 +463,6 @@ const ScrollIndicator = styled.div`
   font-size: 1.5rem;
 
   opacity: 0.9;
-
-  //////////////////////////////////////////////////////
-  // 위아래 움직이는 애니메이션
-  //////////////////////////////////////////////////////
 
   animation: bounce 2s infinite;
 
