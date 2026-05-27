@@ -59,12 +59,13 @@ export const weddingConfig = {
     layout: "grid" as GalleryLayout,
     position: "middle" as GalleryPosition,
     images: [
-      "/images/gallery/20220828_151410_IMG_6570.jpg",
-      "/images/gallery/image001.jpg",
-      "/images/gallery/b-05.jpg",
-      "/images/gallery/20240420_123704.jpg",
-      "/images/gallery/20240702_103738.jpg",
-      "/images/gallery/20240701_120033.jpg"
+      "/images/001.jpg",
+      "/images/002.jpg",
+      "/images/003.jpg",
+      "/images/004.jpg",
+      "/images/005.jpg",
+      "/images/006.jpg",
+      "/images/007.jpg"
     ],
   } as GalleryConfig,
   invitation: {
