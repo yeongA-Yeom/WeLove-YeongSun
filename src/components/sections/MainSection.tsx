@@ -1,98 +1,231 @@
 'use client';
 
 // React 사용
-import React from 'react';
+import React, { useMemo } from 'react';
 
 // styled-components 사용
 import styled from 'styled-components';
 
-// Next.js 이미지 최적화 컴포넌트
+// Next.js 이미지 컴포넌트
 import Image from 'next/image';
 
-// 전체 설정 파일 import
+// 설정 파일
 import { weddingConfig } from '../../config/wedding-config';
 
-// 워터마크 ID (템플릿 식별용)
-const watermarkId = weddingConfig.meta._jwk_watermark_id || 'JWK-NonCommercial';
+//////////////////////////////////////////////////////
+// 워터마크 ID
+//////////////////////////////////////////////////////
 
-// 메인 첫 화면 컴포넌트
+const watermarkId =
+    weddingConfig.meta._jwk_watermark_id ||
+    'JWK-NonCommercial';
+
+
+
+
+//////////////////////////////////////////////////////
+// 프리지아 꽃잎 이미지 목록
+//////////////////////////////////////////////////////
+
+const petalImages = [
+    '/images/gallery/bg/bg1.png',
+    '/images/gallery/bg/bg2.png',
+    '/images/gallery/bg/bg3.png',
+    '/images/gallery/bg/bg4.png',
+    '/images/gallery/bg/bg5.png',
+    '/images/gallery/bg/bg6.png',
+    '/images/gallery/bg/bg7.png',
+];
+
+//////////////////////////////////////////////////////
+// 메인 첫 화면
+//////////////////////////////////////////////////////
+
 const MainSection = () => {
-    return (
-        // 전체 메인 화면 영역
-        <MainSectionContainer className={`wedding-container jwk-${watermarkId.slice(0, 8)}-main`}>
 
-            {/* 배경 이미지 */}
+    //////////////////////////////////////////////////////
+    // 랜덤 꽃잎 생성
+    //////////////////////////////////////////////////////
+
+    const petals = useMemo(() => {
+
+        return Array.from({ length: 24 }).map((_, index) => ({
+
+            id: index,
+
+            image:
+                petalImages[
+                    Math.floor(Math.random() * petalImages.length)
+                    ],
+
+            left: Math.random() * 100,
+
+            duration: 8 + Math.random() * 10,
+
+            delay: Math.random() * 5,
+
+            size: 12 + Math.random() * 16,
+        }));
+
+    }, []);
+
+    //////////////////////////////////////////////////////
+    // 화면 출력
+    //////////////////////////////////////////////////////
+
+    return (
+
+        <MainSectionContainer
+            className={`wedding-container jwk-${watermarkId.slice(0, 8)}-main`}
+        >
+
+            //////////////////////////////////////////////////////
+            // 배경 이미지
+            //////////////////////////////////////////////////////
+
             <BackgroundImage
-                src={weddingConfig.main.image} // 설정파일의 메인 이미지
-                alt="웨딩 배경 이미지"
+                src={weddingConfig.main.image}
+
+                alt="메인 배경 이미지"
+
                 fill
+
                 priority
+
                 sizes="100vw"
+
                 quality={90}
-                style={{ objectFit: 'cover', objectPosition: 'center 10%' }}
             />
 
-            {/* 어둡게 덮는 오버레이 */}
+            //////////////////////////////////////////////////////
+            // 어두운 오버레이
+            //////////////////////////////////////////////////////
+
             <Overlay />
 
-            {/* 중앙 텍스트 영역 */}
+            //////////////////////////////////////////////////////
+            // 떨어지는 프리지아 꽃잎
+            //////////////////////////////////////////////////////
+
+            <PetalContainer>
+
+                {petals.map((petal) => (
+
+                    <Petal
+                        key={petal.id}
+
+                        style={{
+                            left: `${petal.left}%`,
+
+                            width: `${petal.size}px`,
+                            height: `${petal.size}px`,
+
+                            animationDuration: `${petal.duration}s`,
+
+                            animationDelay: `${petal.delay}s`,
+
+                            backgroundImage: `url(${petal.image})`,
+                        }}
+                    />
+                ))}
+
+            </PetalContainer>
+
+            //////////////////////////////////////////////////////
+            // 메인 텍스트
+            //////////////////////////////////////////////////////
+
             <MainContent>
 
-                {/* 메인 제목 */}
-                {/* 예: ❤️축 퇴 직❤️ */}
+                {/* 제목 */}
                 <MainTitle>
                     {weddingConfig.main.title}
                 </MainTitle>
 
                 {/* 날짜 */}
-                {/* 예: 2026년 5월 16일 */}
                 <DateText>
                     {weddingConfig.main.date}
                 </DateText>
 
-                {/* 장소 or 한줄 문구 */}
-                {/* 예: 사랑하는 엄마의 새로운 시작 */}
+                {/* 장소/문구 */}
                 <VenueText>
                     {weddingConfig.main.venue}
                 </VenueText>
 
             </MainContent>
 
-            {/* 아래로 스크롤 유도 아이콘 */}
+            //////////////////////////////////////////////////////
+            // 아래 화살표
+            //////////////////////////////////////////////////////
+
             <ScrollIndicator>
-                <i className="fas fa-chevron-down"></i>
+                ↓
             </ScrollIndicator>
+
         </MainSectionContainer>
     );
 };
 
 //////////////////////////////////////////////////////
-// 전체 메인 섹션 스타일
+// styled-components
+//////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////
+// 전체 메인 섹션
 //////////////////////////////////////////////////////
 
 const MainSectionContainer = styled.section`
   position: relative;
-  height: 100vh; // 화면 전체 높이
-  min-height: 100vh;
+
   width: 100vw;
 
+  height: 100vh;
+
+  min-height: 100vh;
+
+  overflow: hidden;
+
   display: flex;
+
   flex-direction: column;
 
+  justify-content: flex-start;
+
   align-items: center;
-  justify-content: start;
 
   padding-top: 3.5vh;
 
   text-align: center;
-  color: white;
 
-  overflow: hidden;
+  color: white;
 
   background: #f8f6f2;
 
-  /* 태블릿 이상에서는 9:16 비율 유지 */
+  //////////////////////////////////////////////////////
+  // 페이지 등장 애니메이션
+  //////////////////////////////////////////////////////
+
+  animation: fadeIn 1.8s ease;
+
+  @keyframes fadeIn {
+
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  //////////////////////////////////////////////////////
+  // PC 비율 유지
+  //////////////////////////////////////////////////////
+
   @media (min-width: 768px) and (min-height: 780px) {
+
     aspect-ratio: 9 / 16;
 
     max-width: calc(100vh * 9 / 16);
@@ -108,126 +241,188 @@ const MainSectionContainer = styled.section`
 `;
 
 //////////////////////////////////////////////////////
-// 배경 이미지 스타일
+// 배경 이미지
 //////////////////////////////////////////////////////
 
 const BackgroundImage = styled(Image)`
   z-index: 0;
+
+  //////////////////////////////////////////////////////
+  // 이미지 등장 애니메이션
+  //////////////////////////////////////////////////////
+
+  animation: zoomIn 2.5s ease;
+
+  @keyframes zoomIn {
+
+    from {
+      transform: scale(1.08);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  //////////////////////////////////////////////////////
+  // 모바일
+  //////////////////////////////////////////////////////
+
+  object-fit: cover;
+
+  object-position: center center;
+
+  //////////////////////////////////////////////////////
+  // PC에서는 이미지 전체 보이게
+  //////////////////////////////////////////////////////
+
+  @media (min-width: 768px) {
+
+    object-fit: contain;
+
+    background: #f8f6f2;
+  }
 `;
 
 //////////////////////////////////////////////////////
-// 검정 그라데이션 오버레이
+// 어두운 오버레이
 //////////////////////////////////////////////////////
 
 const Overlay = styled.div`
   position: absolute;
 
-  top: 0;
-  left: 0;
+  inset: 0;
 
-  width: 100%;
-  height: 100%;
-
-  /* 위쪽은 어둡고 아래는 투명 */
   background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.4) 0%,
-    rgba(0,0,0,0) 40%
+          to bottom,
+          rgba(0,0,0,0.35) 0%,
+          rgba(0,0,0,0.08) 35%,
+          rgba(0,0,0,0) 60%
   );
 
   z-index: 1;
 `;
 
 //////////////////////////////////////////////////////
-// 텍스트 영역
+// 꽃잎 컨테이너
+//////////////////////////////////////////////////////
+
+const PetalContainer = styled.div`
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 2;
+`;
+
+//////////////////////////////////////////////////////
+// 프리지아 꽃잎
+//////////////////////////////////////////////////////
+
+const Petal = styled.div`
+  position: absolute;
+
+  top: -10%;
+
+  background-size: contain;
+
+  background-repeat: no-repeat;
+
+  background-position: center;
+
+  opacity: 0.9;
+
+  filter: blur(0.2px);
+
+  animation-name: falling;
+
+  animation-timing-function: linear;
+
+  animation-iteration-count: infinite;
+
+  @keyframes falling {
+
+    0% {
+      transform:
+              translateY(-10vh)
+              translateX(0)
+              rotate(0deg);
+
+      opacity: 0;
+    }
+
+    10% {
+      opacity: 0.9;
+    }
+
+    100% {
+      transform:
+              translateY(110vh)
+              translateX(60px)
+              rotate(360deg);
+
+      opacity: 0;
+    }
+  }
+`;
+
+//////////////////////////////////////////////////////
+// 메인 텍스트 영역
 //////////////////////////////////////////////////////
 
 const MainContent = styled.div`
   position: relative;
 
-  z-index: 2;
+  z-index: 3;
 
-  margin-top: 0.5vh;
+  margin-top: 1vh;
 
-  @media (max-width: 600px) {
-    margin-top: 0.5vh;
+  padding-left: 1rem;
 
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+  padding-right: 1rem;
 `;
 
 //////////////////////////////////////////////////////
-// 메인 제목 스타일
+// 메인 제목
 //////////////////////////////////////////////////////
 
 const MainTitle = styled.h1`
-  /* 폰트 */
-  font-family: 'PlayfairDisplay', 'Times New Roman', serif;
+  font-family:
+          'PlayfairDisplay',
+          'Times New Roman',
+          serif;
 
-  /* 이탤릭 */
-  font-style: normal;
-
-  /* 글자 크기 */
   font-size: 3rem;
-
-  min-height: 3rem;
-
-  /* 글자 간격 */
-  letter-spacing: 2px;
-
-  /* 아래 여백 */
-  margin-bottom: 1rem;
 
   font-weight: 400;
 
+  letter-spacing: 2px;
+
   line-height: 1.2;
 
-  //////////////////////////////////////////////////////
-  // 반응형 스타일
-  //////////////////////////////////////////////////////
+  margin-bottom: 1rem;
 
-  /* 화면 높이가 작을 때 */
-  @media (min-width: 769px) and (max-height: 700px) {
-    letter-spacing: 1.5px;
-    margin-bottom: 0.8rem;
-  }
-
-  @media (min-width: 769px) and (max-height: 600px) {
-    letter-spacing: 1px;
-    margin-bottom: 0.6rem;
-  }
-
-  /* 태블릿 이하 */
   @media (max-width: 768px) {
     font-size: 2.5rem;
-    min-height: 2.5rem;
   }
 
-  /* 모바일 */
   @media (max-width: 450px) {
     font-size: 2rem;
-    min-height: 2rem;
-    letter-spacing: 1.5px;
   }
 
-  /* 작은 모바일 */
   @media (max-width: 360px) {
     font-size: 1.8rem;
-    min-height: 1.8rem;
-    letter-spacing: 1px;
-  }
-
-  /* 초소형 모바일 */
-  @media (max-width: 295px) {
-    font-size: 1.6rem;
-    min-height: 1.6rem;
-    letter-spacing: 0.5px;
   }
 `;
 
 //////////////////////////////////////////////////////
-// 날짜 텍스트 스타일
+// 날짜
 //////////////////////////////////////////////////////
 
 const DateText = styled.p`
@@ -235,26 +430,17 @@ const DateText = styled.p`
 
   margin-bottom: 0.5rem;
 
-  /* 모바일 대응 */
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
   @media (max-width: 450px) {
-    font-size: 1.1rem;
-  }
-
-  @media (max-width: 360px) {
     font-size: 1rem;
-  }
-
-  @media (max-width: 295px) {
-    font-size: 0.9rem;
   }
 `;
 
 //////////////////////////////////////////////////////
-// 장소 / 한줄 문구 스타일
+// 장소 / 문구
 //////////////////////////////////////////////////////
 
 const VenueText = styled.p`
@@ -267,70 +453,56 @@ const VenueText = styled.p`
   @media (max-width: 450px) {
     font-size: 0.9rem;
   }
-
-  @media (max-width: 360px) {
-    font-size: 0.85rem;
-  }
-
-  @media (max-width: 295px) {
-    font-size: 0.75rem;
-  }
 `;
 
 //////////////////////////////////////////////////////
-// 아래 화살표 애니메이션
+// 아래 화살표
 //////////////////////////////////////////////////////
 
 const ScrollIndicator = styled.div`
   position: absolute;
 
-  bottom: 2rem;
-
   left: 50%;
+
+  bottom: 2rem;
 
   transform: translateX(-50%);
 
-  z-index: 2;
+  z-index: 3;
+
+  font-size: 1.5rem;
+
+  opacity: 0.9;
+
+  //////////////////////////////////////////////////////
+  // 위아래 움직이는 애니메이션
+  //////////////////////////////////////////////////////
 
   animation: bounce 2s infinite;
 
-  /* 위아래 움직이는 애니메이션 */
   @keyframes bounce {
+
     0%, 20%, 50%, 80%, 100% {
-      transform: translateX(-50%) translateY(0);
+
+      transform:
+        translateX(-50%)
+        translateY(0);
     }
 
     40% {
-      transform: translateX(-50%) translateY(-20px);
+
+      transform:
+        translateX(-50%)
+        translateY(-10px);
     }
 
     60% {
-      transform: translateX(-50%) translateY(-10px);
+
+      transform:
+        translateX(-50%)
+        translateY(-5px);
     }
   }
-`;
-
-//////////////////////////////////////////////////////
-// 숨겨진 워터마크
-//////////////////////////////////////////////////////
-
-const HiddenWatermark = styled.span`
-  position: absolute;
-
-  opacity: 0.01;
-
-  font-size: 1px;
-
-  color: rgba(255, 255, 255, 0.01);
-
-  pointer-events: none;
-
-  user-select: none;
-
-  z-index: -9999;
-
-  bottom: 0;
-  right: 0;
 `;
 
 export default MainSection;
