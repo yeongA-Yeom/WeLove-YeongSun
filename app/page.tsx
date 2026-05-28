@@ -5,6 +5,10 @@ import dynamic from 'next/dynamic';
 import MainSection from '../src/components/sections/MainSection';
 import { weddingConfig } from '../src/config/wedding-config';
 
+// bgm
+const MusicPlayer = dynamic(() => import('../src/components/sections/MusicPlayer'), {
+  ssr: false,
+});
 // 동적 임포트로 코드 분할 및 지연 로딩 적용
 const DateSection = dynamic(() => import('../src/components/sections/DateSection'), {
   loading: () => <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>로딩 중...</div>
@@ -64,6 +68,7 @@ export default function Home() {
 
   return (
     <main>
+      <MusicPlayer />
       <MainSection />
       <InvitationSection bgColor={sectionColorMap['invitation']} />
       <DateSection bgColor={sectionColorMap['date']} />
