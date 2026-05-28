@@ -54,7 +54,7 @@ const MainSection = () => {
             setCurrentImage((prev) => {
                 return (prev + 1) % weddingConfig.gallery.images.length;
             });
-        }, 7000);
+        }, 5000);
 
         return () => clearInterval(interval);
     }, []);
